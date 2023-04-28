@@ -21,7 +21,7 @@
 >
 >我个人很奇怪 程序设计方法 这样的佳作为什么会绝版，而谭浩强C语言这样的垃圾却大行其道——好在是程序设计方法 第二版 已经被免费发布在网上。
 
-这本书便是[《How to Design Programs, Second Edition》](https://htdp.org/2019-02-24/index.html)，如今跟随书本学到了第3章，开始明了：代码语言 ≠ 程序设计。
+这本书便是[《How to Design Programs, Second Edition》](https://htdp.org/2019-02-24/index.html)，如今跟随书本学到了第3章，开始明了：**代码语言 ≠ 程序设计**。
 
 怎么样设计程序，是思想。
 
