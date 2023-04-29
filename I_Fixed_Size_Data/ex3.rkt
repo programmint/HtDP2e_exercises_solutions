@@ -2,7 +2,7 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname ex3) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 
-; 3.1 这题目也是一探索题；
+; 3.1、这题目也是一探索题；
 
 (define str "helloworld")
 (define i 5)
@@ -10,7 +10,7 @@
 (define end (substring str i))
 (string-append begin "_" end)
 
-;3.2 解析
+;3.2、解析
 
 ;这个题目，显示出作者有丰富的教学经验了，属于前面所说的自我探索，去解决问题。其实我卡在这个题目这里蛮久时间，因为我完全忽视了书中的提示。
 ;要实现出最终的效果，需要分 2 步走：
@@ -28,7 +28,7 @@
 
 ;from 《程序设计方法》（第2版）人民邮电出版社 下同
 
-;3.3 实现
+;3.3、实现
 
 ;依然是去 Drracket 中 help desk 中去查：
 ;substring 的作用就是从字符串中把对应位置的元素，提取出来；所以，实现起来就简单了。
