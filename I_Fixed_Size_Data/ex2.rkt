@@ -8,4 +8,4 @@
 (string-append prefix "_" suffix)
 
 ;2.2、思路解析
-;这个题目很简单，题目的思路，书上直接给出了，即运用：string-append，其实 append 这个函数 Python 也在运用。
+;这个题目很简单，题目的思路，书上直接给出了，即运用：string-append，其实 append 这个函数 Python 也在运用;
