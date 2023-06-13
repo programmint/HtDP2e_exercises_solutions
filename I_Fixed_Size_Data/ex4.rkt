@@ -8,7 +8,7 @@
 (define natural_number 8) ; 定义要删除的数值，这里定义是 8
 (define str_length (string-length str)) ; 定义字符串 str 的长度函数
 
-(define (delete_letter natural_number) ; 定义删除字母的函数，以及要删除的数值；
+(define (delete_letter natural_number) ; 定义删除字母的函数，以及要删除的数值
     (cond
         [
             (= natural_number 0) ;条件1：输入的数值是0；
