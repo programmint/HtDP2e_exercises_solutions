@@ -3,7 +3,7 @@
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname ex3) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 
 ;3.1、实现
-;这题目也是一探索题，需要去 Drracket 中 help desk 中去查 substrin：
+;这题目也是一探索题，需要去 Drracket 中 help desk 中去查 substring：
 ;substring 的作用就是从字符串中把对应位置的元素，提取出来；
 
 (define str "helloworld")
@@ -17,7 +17,7 @@
 ;这个题目，显示出作者有丰富的教学经验了，属于前面所说的自我探索，去解决问题。其实我卡在这个题目这里蛮久时间，因为我完全忽视了书中的提示。
 ;要实现出最终的效果，需要分 2 步走：
 ;第 1 步：分别提取出“hello”和“world”；
-;第 2 步：在“hello”和“world”中指定的位置，本例是 i = 5，加入下划线“—”，即可实现最终的效果；
+;第 2 步：在“hello”和“world”中指定的位置，本例是 i = 5，加入下划线“_”，即可实现最终的效果；
 ;怎么来提取“hello”和“world”，书中其实没有讲，这章节你翻破了书，也没有提示。其实，在 23 页，里面有一句话：
 
 ;二者的混合 
