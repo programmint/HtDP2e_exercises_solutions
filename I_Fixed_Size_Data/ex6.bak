@@ -1,0 +1,12 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname ex6) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;6.1、实现
+(define cat )
+(* (image-heightt cat)(image-width cat))
+
+
+;6.2、思路解析
+
+;我最开始是用函数来解决这个问题，考虑复杂了，这里就是使用一个简单的表达式来计算。
+;题目的本意，就是助你掌握这个表达式。
