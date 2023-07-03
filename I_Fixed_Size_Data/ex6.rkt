@@ -5,7 +5,7 @@
 
 ;6.1、实现
 (define cat (bitmap "images/cat.png")) ;bitmap 的用法参考别人
-(* (image-heightt cat)(image-width cat))
+    (* (image-heightt cat)(image-width cat))
 
 
 ;6.2、思路解析
