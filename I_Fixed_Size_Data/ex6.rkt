@@ -4,9 +4,8 @@
 
 
 ;6.1、实现
-(define cat (bitmap "images/cat.png")) ;bitmap 的用法参考别人
+(define cat (bitmap "images/cat.png")) ;bitmap 的用法参考他人
     (* (image-heightt cat)(image-width cat))
-
 
 ;6.2、思路解析
 ;注意审题，编写像素的计算式。
