@@ -12,4 +12,4 @@
 ;用 img 来代替实际中的图片
 
 ; 17.3、思路解析
-; 这个题目也不难，还是考察 image-height 和 image-width，以及运用 cond  
+; 这个题目也不难，还是考察 image-height 和 image-width，以及运用 cond.
