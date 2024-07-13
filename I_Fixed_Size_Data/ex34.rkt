@@ -1,10 +1,13 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname ex34) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname ex35) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 
+; 34.1、题目
+; 设计函数string-first，它从非空字符串中提取第一个字符。不必担心空字符串。
+
+; 题目这里明说，不要忧虑非空字符串，而且之前练习时，我恰恰忽略了这一点，偏偏要考虑空字符串的问题，表面上思路考虑完备，实则审题不严格。
+; 这种问题，实际中很少吗？
+; 恰恰相反，很常见，我自己的感受：多多少少忽略实际需求，越是经验少的开发，越容易犯这个错误。
+; 我重新整理此前答案，才发现自己那失误，垂头丧气。念当初，写出离题意万里的代码，还洋洋自得，可笑！
+
+; 34.2、实现
 ; 1、String represents text. 信息转为数据
 ; 旁解：
 
@@ -40,7 +43,7 @@
 
 ; 6、(define (sting-first str)  盘点（inventory）
 ;            (... str ...))
-; 有了函数头，有了输入输出，把函数组合起来，到了这一步，等于把函数写了出来;
+; 有了函数头，有了输入输出，把函数组合起来，到了这一步，等于把函数写了出来；
 
 (define (string-first str)
     (substring str 0 1))
@@ -50,4 +53,7 @@
 
  ;设计一词，往往意味着复杂
  ;一行一行的字，写下来，我才理解里面的思路
- 
+
+; 34.3、思路解析
+; 这书磨人。
+; 对应的思路，写在注释里面了。
