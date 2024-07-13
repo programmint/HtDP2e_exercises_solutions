@@ -24,9 +24,7 @@
         [
             (> natural_number (string-length str)) ;条件3:输入的数值,大于字符串的长度,给与对应的提示
             (string-append "输入的整数要小于或等于" (number->string(string-length str )))
-        ]
-    )
-)
+        ]))
 
 (delete_letter natural_number) ; drrackt 中运行就可以了;
 
