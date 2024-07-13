@@ -1,8 +1,13 @@
+
+; 30.1、题目
+; 练习30. 为电影院的价格优化程序定义常量，以便出场率的价格敏感度(每10美分15人)成为计算常数。
+
+; 30.2、实现
 ; 这个题目，真是令我猝不及防，没有想到在这里也可以定义常量
 
 ;Constants
 (define BASE_ATTENDES 120) ;基准人数
-(define MARGINAL_ATTENDES 15) ;边际人数，指人数受价格影响，增加或减少的人数，这词汇来源于经济学;
+(define MARGINAL_ATTENDES 15) ;边际人数，指人数受价格影响，增加或减少的人数，这词汇来源于经济学；
 
 (define CURRENT_PRICE 5) ;定义当前票价
 (define MARGINAL_PRICE 0.10) ;定义边际票价，1美元 = 100 美分，所以小数点后两位数字。
@@ -35,10 +40,13 @@
 (profit 5.0);415.2
 
 ;difference
-(define (attendees ticket-price) ;定义到场人数
+(define (attendees ticket-price) ;定义到场人数函数
   (- BASE_ATTENDES (* (- ticket-price CURRENT_PRICE) (/ MARGINAL_ATTENDES MARGINAL_PRICE))))
 
-(define (attendees ticket-price) ;定义到场人数
+(define (attendees ticket-price) ;定义到场人数函数
   (- BASE_ATTENDES (* (- ticket-price CURRENT_PRICE) PRICE_SENSITIVITY)))
 
 ;通过对比,可以发现，定义了价格敏感度常量，子函数相对更加容易理解，居然还可以这样子使用。
+
+; 30.3、思路解析
+; 这题目真是令我猝不及防，没有考虑到这里也应该命名常量，不得不感叹书的作者，这样子设计确实有深意，更能看出，程序设计真是细致活，
