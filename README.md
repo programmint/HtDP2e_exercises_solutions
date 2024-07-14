@@ -112,6 +112,16 @@ D、One Dark Pro 插件：看你选择
 
 同时，DrRacket 的安装路径，最好是加入环境变量，我之前没填写，不停报错，加了之后，就不报错了。
 
+第4、DrRact 安装 racket-langserver
+
+我个人的体会，如果不安装 racket-langserver，vscodium ( vscode 也是如此 ) 会不停提示你不能启动 Magic Racket 
+
+DrRacket 中，点击 File -> package manager ，打开包管理器
+
+输入框中输入racket-langserver，点击 install 或 update 进行安装或更新
+
+注意有时因为网络问题，可能安装不成功，那就多试几次。
+
 ## 第 5 、书
 解题过程中，实在好奇，一门编程语言，该怎么样来设计？
 
