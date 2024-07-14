@@ -118,9 +118,9 @@ D、One Dark Pro 插件：看你选择
 
 安装步骤如下：
 
-DrRacket 中，点击 File -> package manager ，打开包管理器
+DrRacket 中，点击 File -> package manager ，打开包管理器。
 
-输入框中输入racket-langserver，点击 install 或 update 进行安装或更新
+输入框中输入racket-langserver，点击 install 或 update 进行安装或更新。
 
 注意有时因为网络问题，可能安装不成功，那就多试几次。
 
