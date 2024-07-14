@@ -114,7 +114,9 @@ D、One Dark Pro 插件：看你选择
 
 第4、DrRact 安装 racket-langserver
 
-我个人的体会，如果不安装 racket-langserver，vscodium ( vscode 也是如此 ) 会不停提示你不能启动 Magic Racket 
+我个人的体会，如果不安装 racket-langserver，vscodium ( vscode 也是如此 ) 会不停提示你不能启动 Magic Racket 。
+
+安装步骤如下：
 
 DrRacket 中，点击 File -> package manager ，打开包管理器
 
