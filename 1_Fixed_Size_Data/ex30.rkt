@@ -40,4 +40,4 @@
 (define (attendees ticket-price) ;定义到场人数函数
   (- BASE_ATTENDES (* (- ticket-price CURRENT_PRICE) PRICE_SENSITIVITY)))
 
-;通过对比,可以发现，定义了价格敏感度常量，子函数相对更加容易理解，居然还可以这样子使用。
+;对比发现，定义了价格敏感度常量，子函数相对更加容易理解，居然还可以这样子使用。
