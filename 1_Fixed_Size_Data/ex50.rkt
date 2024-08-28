@@ -4,8 +4,8 @@
 ; TrafficLight -> TrafficLight
 
 (check-expect (traffic-light-next "red") "green")
-(check-expect (traffic-light-next "green") "yellow")  ; 新增测试案例
-(check-expect (traffic-light-next "yellow") "red")      ; 新增测试案例
+(check-expect (traffic-light-next "green") "yellow")  ; 补增测试案例
+(check-expect (traffic-light-next "yellow") "red")      ; 补增测试案例
 
 (define (traffic-light-next s)
   (cond
