@@ -4,10 +4,10 @@
 ; 按下空格，开始飞行
 
 ; Core ideas
-; 解决这个题目，重在其中的状态 (rocket-state)，在 big-bang 各个子函数之间正确流转
-; 引用 big-bang 函数时，状态怎么样合理流转，始终都要注意它
+; big-bang 隶属“事件驱动编程”，其中的状态 (本题命名为：rocket-state)，在 big-bang 各个子函数之间正确流转极为重要
 
 ; 定义背景
+
 ; number image -> image
 (define BACKG-WIDTH 100)
 (define BACKG-HEIGHT 300)
