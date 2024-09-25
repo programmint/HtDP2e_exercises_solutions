@@ -1,27 +1,101 @@
 ; 53
-; wish list
-; 火箭飞行，初始位于地面上
-; 按下空格，开始飞行
 
-; Core ideas
-; big-bang 隶属“事件驱动编程”，其中的状态 (本题命名为：rocket-state)，在 big-bang 各个子函数之间正确流转极为重要
+; 共包含 2 种思路
+; 思路1、运用条目思路
+; 思路2、运用事件驱动编程思路
 
-; 定义背景
+; -- 思路 1 ：运用条目思路 ------------------------------------------------------------------------------------------------------------------
 
+; == 背景常量
 ; number image -> image
-(define BACKG-WIDTH 100)
-(define BACKG-HEIGHT 300)
-(define BACKG (empty-scene BACKG-WIDTH BACKG-HEIGHT))
+(define BG-W 100) 
+(define BG-H 300)
+(define BACKG (empty-scene BG-W BG-H))
+
+; == 火箭常量
+; number image -> image
+(define RKT-W 5)
+(define RKT-H 30)
+(define RKT-CTR (/ RKT-H 2)) 
+(define ROCKET (rectangle RKT-W RKT-H "solid" "red")) 
+
+; == 火箭飞行常量
+(define Y-DELTA 3)  
+(define RKT-X-POS (/ BG-W 2))
+(define INIT-Y-POS (- BG-H RKT-CTR))
+
+; === 数据定义
+; An LR (short for launching rocket) is one of:
+; – "resting"
+; – NonnegativeNumber
+; interpretation: "resting" represents a grounded rocket
+; a number denotes the height of a rocket in flight
+
+; 高度定义
+; 地面与火箭中心距离
+
+
+; 时钟函数：每滴答一次，火箭上升 3像素
+; LR -> LR
+(define (rkt-tock rkt-state)
+  (cond
+    [(and (number? rkt-state) (> rkt-state 0)) (- rkt-state Y-DELTA)] 
+    [else rkt-state]))
+
+; 按键函数：火箭静止，且只有按下空格键后，火箭才发射
+; LR KeyEvent -> LR
+(define (handle-key rkt-state ke)
+  (cond
+    [(and (string? rkt-state) (key=? ke " ")) INIT-Y-POS] 
+    [else rkt-state])) 
+
+; 火箭函数：时钟滴答一次，实时绘制火箭一次
+; LR -> Image
+(define (draw-rkt rkt-state)
+    (place-image ROCKET
+        RKT-X-POS
+        (cond
+            [(string? rkt-state) INIT-Y-POS]
+            [(>= rkt-state 0) rkt-state])
+    BACKG))
+
+; 火箭超出画布时停止飞行
+; LR -> Boolean
+(define (rkt-off-canvas? rkt-state)
+  (cond
+    [(and (number? rkt-state) (< rkt-state 0)) #true]
+    [else #false])) ; 其他情况下继续飞行
+
+; 火箭主函数
+(define (main rkt-state)
+  (big-bang rkt-state
+            (to-draw draw-rkt)
+            (on-key handle-key)
+            (on-tick rkt-tock)
+            (stop-when rkt-off-canvas?)))
+
+(main "resting")
+
+; -- 思路 2 ：运用事件驱动编程思路 --------------------------------------------------------------------------------------------------------
+
+; big-bang 隶属“事件驱动编程”，其中的状态 (本题命名为：rkt-state)，在 big-bang 各个子函数之间正确流转极为重要
+ 
+; 定义背景
+; number image -> image
+(define BG-W 100)
+(define BG-H 300)
+(define BACKG (empty-scene BG-W BG-H))
 
 ; 定义火箭
 ; number image -> image
-(define ROCKET-WIDTH 5)
-(define ROCKET-HEIGHT 30)
-(define ROCKET (rectangle ROCKET-WIDTH ROCKET-HEIGHT "solid" "red"))
+(define RKT-W 5)
+(define RKT-H 30)
+(define RKT-CTR ( / RKT-H 2))
+(define ROCKET (rectangle RKT-W RKT-H "solid" "red"))
 
 ; 定义火箭初始位置
 ; number -> number
-(define INITIAL-POSITION BACKG-HEIGHT)
+(define INIT-POS (- BG-H RKT-CTR))
 
 ; 定义火箭状态常量
 ; worldstate -> worldstate
@@ -34,59 +108,59 @@
 ; 定义空格事件
 ; 只有按下空格，火箭才飞行，否则保持不动。
 ; worldstate keyevent -> worldstate
-(define (handle-key rocket-state a-key)
+(define (handle-key rkt-state a-key)
     (cond
-        [(and (eq? rocket-state RESTING) (key=? a-key " ")) INITIAL-POSITION]
-        [else rocket-state]))
+        [(and (eq? rkt-state RESTING) (key=? a-key " ")) INIT-POS]
+        [else rkt-state]))
 
 ; 定义火箭飞行水平位置
 ; number -> number 
-(define ROCKET-X-POSITION (/ BACKG-WIDTH 2))
+(define RKT-X (/ BG-W 2))
 
 ; 定义火箭飞行高度
 ; number -> number 
-(define (rocket-y-position rocket-state)
+(define (rkt-tock rkt-state)
     (cond
-        [(number? rocket-state)(- rocket-state Y-DELTA)]
-        [else rocket-state]))
+        [(number? rkt-state)(- rkt-state Y-DELTA)]
+        [else rkt-state]))
 
 ; 绘制火箭
 ; number image -> image
-(define ( flying-rocket rocket-state)
+(define ( draw-rkt rkt-state)
     (place-image ROCKET
-        ROCKET-X-POSITION
+        RKT-X
         (cond
-            [(number? rocket-state) rocket-state]
-            [else INITIAL-POSITION])
+            [(number? rkt-state) rkt-state]
+            [else INIT-POS])
     BACKG))
 
 ; 检验火箭是否停止飞行
 ; worldstate ->boolean
-(define ( rocket-off-canvas? rocket-state)
+(define ( rkt-off-canvas? rkt-state)
     (and
-        (number? rocket-state)
-        (<= rocket-state 0)))
+        (number? rkt-state)
+        (<= rkt-state 0)))
 
 ; 定义主函数
-(define (main rocket-state)
-    (big-bang rocket-state
-        (on-tick rocket-y-position)
-        (to-draw flying-rocket)
+(define (main rkt-state)
+    (big-bang rkt-state
+        (on-tick rkt-tock)
+        (to-draw draw-rkt)
         (on-key handle-key)
-        (stop-when rocket-off-canvas?)))
+        (stop-when rkt-off-canvas?)))
 
-; 测试 rocket-y-position
-(check-expect (rocket-y-position 100) 97) 
-(check-expect (rocket-y-position 'resting) 'resting) 
+; 测试 rkt-tock
+(check-expect (rkt-tock 100) 97) 
+(check-expect (rkt-tock 'resting) 'resting) 
 
 ; 测试 handle-key
 (check-expect (handle-key 'resting "a") 'resting)  
-(check-expect (handle-key 'resting " ") INITIAL-POSITION)
+(check-expect (handle-key 'resting " ") INIT-POS)
 (check-expect (handle-key 100 " ")100) 
 
-; 测试 rocket-off-canvas?
-(check-expect (rocket-off-canvas? 'resting) #false)
-(check-expect (rocket-off-canvas? 0) #true)
-(check-expect (rocket-off-canvas? 60) #false)
+; 测试 rkt-off-canvas?
+(check-expect (rkt-off-canvas? 'resting) #false)
+(check-expect (rkt-off-canvas? 0) #true)
+(check-expect (rkt-off-canvas? 60) #false)
 
 (main RESTING)
