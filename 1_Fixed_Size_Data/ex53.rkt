@@ -34,7 +34,6 @@
 ; 高度定义
 ; 地面与火箭中心距离
 
-
 ; 时钟函数：每滴答一次，火箭上升 3像素
 ; LR -> LR
 (define (rkt-tock rkt-state)
@@ -44,9 +43,9 @@
 
 ; 按键函数：火箭静止，且只有按下空格键后，火箭才发射
 ; LR KeyEvent -> LR
-(define (handle-key rkt-state ke)
+(define (handle-key rkt-state a-key)
   (cond
-    [(and (string? rkt-state) (key=? ke " ")) INIT-Y-POS] 
+    [(and (string? rkt-state) (key=? a-key " ")) INIT-Y-POS] 
     [else rkt-state])) 
 
 ; 火箭函数：时钟滴答一次，实时绘制火箭一次
