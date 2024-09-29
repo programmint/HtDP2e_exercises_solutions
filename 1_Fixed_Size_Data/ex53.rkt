@@ -6,6 +6,13 @@
 
 ; -- 思路 1 ：运用条目思路 ------------------------------------------------------------------------------------------------------------------
 
+; === 数据定义
+; An LR (short for launching rocket) is one of:
+; – "resting"
+; – NonnegativeNumber
+; interpretation: "resting" represents a grounded rocket
+; a number denotes the height of a rocket in flight
+
 ; == 背景常量
 ; number image -> image
 (define BG-W 100) 
@@ -23,23 +30,8 @@
 (define Y-DELTA 3)  
 (define RKT-X-POS (/ BG-W 2))
 (define INIT-Y-POS (- BG-H RKT-CTR))
-
-; === 数据定义
-; An LR (short for launching rocket) is one of:
-; – "resting"
-; – NonnegativeNumber
-; interpretation: "resting" represents a grounded rocket
-; a number denotes the height of a rocket in flight
-
 ; 高度定义
 ; 地面与火箭中心距离
-
-; 时钟函数：每滴答一次，火箭上升 3像素
-; LR -> LR
-(define (rkt-tock rkt-state)
-  (cond
-    [(and (number? rkt-state) (> rkt-state 0)) (- rkt-state Y-DELTA)] 
-    [else rkt-state]))
 
 ; 按键函数：火箭静止，且只有按下空格键后，火箭才发射
 ; LR KeyEvent -> LR
@@ -47,6 +39,13 @@
   (cond
     [(and (string? rkt-state) (key=? a-key " ")) INIT-Y-POS] 
     [else rkt-state])) 
+
+; 时钟函数：每滴答一次，火箭上升 3像素
+; LR -> LR
+(define (rkt-tock rkt-state)
+  (cond
+    [(and (number? rkt-state) (> rkt-state 0)) (- rkt-state Y-DELTA)] 
+    [else rkt-state]))
 
 ; 火箭函数：时钟滴答一次，实时绘制火箭一次
 ; LR -> Image
@@ -75,6 +74,7 @@
 
 (main "resting")
 
+
 ; -- 思路 2 ：运用事件驱动编程思路 --------------------------------------------------------------------------------------------------------
 
 ; big-bang 隶属“事件驱动编程”，其中的状态 (本题命名为：rkt-state)，在 big-bang 各个子函数之间正确流转极为重要
@@ -94,7 +94,7 @@
 
 ; 定义火箭初始位置
 ; number -> number
-(define INIT-POS (- BG-H RKT-CTR))
+(define INIT-Y-POS (- BG-H RKT-CTR))
 
 ; 定义火箭状态常量
 ; worldstate -> worldstate
@@ -109,7 +109,7 @@
 ; worldstate keyevent -> worldstate
 (define (handle-key rkt-state a-key)
     (cond
-        [(and (eq? rkt-state RESTING) (key=? a-key " ")) INIT-POS]
+        [(and (eq? rkt-state RESTING) (key=? a-key " ")) INIT-Y-POS]
         [else rkt-state]))
 
 ; 定义火箭飞行水平位置
@@ -130,7 +130,7 @@
         RKT-X
         (cond
             [(number? rkt-state) rkt-state]
-            [else INIT-POS])
+            [else INIT-Y-POS])
     BACKG))
 
 ; 检验火箭是否停止飞行
@@ -154,7 +154,7 @@
 
 ; 测试 handle-key
 (check-expect (handle-key 'resting "a") 'resting)  
-(check-expect (handle-key 'resting " ") INIT-POS)
+(check-expect (handle-key 'resting " ") INIT-Y-POS)
 (check-expect (handle-key 100 " ")100) 
 
 ; 测试 rkt-off-canvas?
