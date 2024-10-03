@@ -14,6 +14,7 @@
 
 ; Core ideas
 ; 火箭状态：静止 -> 倒计时 -> 飞行 -> 停止
+; 主要使用了 place-images，place-image 嵌套不易读
 
 ; ==背景常量
 ; nubmer,image -> iamge 
