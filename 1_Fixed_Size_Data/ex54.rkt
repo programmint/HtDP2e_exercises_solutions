@@ -36,7 +36,7 @@
 (define Y-START-POS (- BG-H RKT-CTR))
 
 ; ==飞行状态描述常量
-(define idle-msg (text "按下空格，发生火箭" 16 "black"))
+(define idle-msg (text "按下空格，发射火箭" 16 "black"))
 (define idle-msg-pos (make-posn (- BG-W 470) (- BG-H 25)))
 
 (define rkt-start-pos (make-posn X-START-POS Y-START-POS))
