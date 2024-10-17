@@ -61,7 +61,7 @@
     [(and (string? rkt-state) (string=? rkt-state "resting") (key=? a-key " ")) -3]
     [else rkt-state]))
 
-; 测试案例
+; 按键事件测试案例
 (check-expect (handle-key "resting" " ") -3 )
 (check-expect (handle-key "abc" " ") "abc" )
 (check-expect (handle-key 27 " ") 27 )
@@ -76,7 +76,7 @@
     [(and (number? rkt-state) (> rkt-state 0)) (+ rkt-state YDELTA)]
     [else rkt-state]))
 
-; 测试案例
+; 时钟滴答测试案例
 (check-expect (tock-y-h "resting") "resting")
 (check-expect (tock-y-h 0) 3)
 (check-expect (tock-y-h 27) 30)
@@ -90,7 +90,7 @@
     [(and (number? rkt-state)(>= rkt-state 0)(< rkt-state BG-H)) (flying-img rkt-state)]
     [(= rkt-state BG-H) end-img]))
 
-; 测试案例
+; 渲染火箭测试案例
 (check-expect 
   (draw-rkt "resting")
   (place-images
@@ -128,6 +128,7 @@
     [(and (number? rkt-state) (> rkt-state BG-H)) #true]
     [else #false]))
 
+; 火箭停止飞行测试案例
 (check-expect (rkt-off-canvas? 303) #true)
 
 ; 定义世界程序
