@@ -1,5 +1,7 @@
 ; 54 
 
+; 基于 53 题，增加了倒计时功能
+
 ; 数据定义 
 ; An LRCDCD (for launching rocket countdown) is one of:
 ; – "resting"
@@ -29,22 +31,25 @@
 (define RKT-CTR (/ RKT-H 2)) 
 (define ROCKET (rectangle RKT-W RKT-H "solid" "red")) 
 
-; ==飞行参数常量
+; ==火箭飞行参数常量
 ; number -> number 
 (define YDELTA 3)  
 (define X-START-POS (/ BG-W 2))
 (define Y-START-POS (- BG-H RKT-CTR))
 
-; ==飞行状态描述常量
+; ==火箭静止状态常量
 (define idle-msg (text "按下空格，发射火箭" 16 "black"))
 (define idle-msg-pos (make-posn (- BG-W 470) (- BG-H 25)))
-
 (define rkt-start-pos (make-posn X-START-POS Y-START-POS))
+
+; ==火箭倒计时状态常量
 (define countdown-pos (make-posn X-START-POS ( - BG-H 35)))
 
+; ==火箭飞行状态常量
 (define flying-msg (text "火箭正飞行" 16 "black"))
 (define flying-msg-pos (make-posn (- BG-W 470) ( - BG-H 230)))
 
+; ==火箭停止飞行状态常量
 (define end-msg (text "火箭飞行已结束" 16 "red"))
 (define end-msg-xpos (- BG-W 470))
 (define end-msg-ypos (- BG-H 230))
@@ -57,11 +62,10 @@
     [(and (string? rkt-state) (string=? rkt-state "resting") (key=? a-key " ")) -3]
     [else rkt-state]))
 
-; 测试案例
+; 测试按键事件函数
 (check-expect (handle-key "resting" " ") -3 )
 (check-expect (handle-key "abc" " ") "abc" )
 (check-expect (handle-key 27 " ") 27 )
-
 
 ; 时钟滴答函数
 ; worldstate -> worldstate
@@ -73,11 +77,10 @@
     [(and (number? rkt-state) (> rkt-state 0)) (+ rkt-state YDELTA)]
     [else rkt-state]))
 
-; 测试案例
+; 测试时钟滴答函数
 (check-expect (tock-y-h "resting") "resting")
 (check-expect (tock-y-h 0) 3)
 (check-expect (tock-y-h 27) 30)
-
 
 ; 渲染火箭函数
 ; worldstate -> image
@@ -103,7 +106,7 @@
 
       [(= rkt-state BG-H) end-scene]))
 
-; 测试案例
+; 测试渲染火箭函数
 (check-expect 
   (draw-rkt "resting")
   (place-images
@@ -141,6 +144,7 @@
     [(and (number? rkt-state) (> rkt-state BG-H)) #true]
     [else #false]))
 
+; 测试火箭停止飞行函数
 (check-expect (rkt-off-canvas? 303) #true)
 
 ; 定义世界程序
