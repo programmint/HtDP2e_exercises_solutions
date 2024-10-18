@@ -1,7 +1,7 @@
 ; 53
 
 ; 共包含 2 种思路
-; 思路1、运用条目思路
+; 思路1、运用条目思路（推荐这思路，更贴合题意）
 ; 思路2、运用事件驱动编程思路
 
 ; -- 思路 1 ：运用条目思路 ------------------------------------------------------------------------------------------------------------------
@@ -12,6 +12,9 @@
 ; – NonnegativeNumber
 ; interpretation: "resting" represents a grounded rocket
 ; a number denotes the height of a rocket in flight
+
+; 高度定义
+; 地面与火箭中心距离
 
 ; == 背景常量
 ; number image -> image
@@ -28,34 +31,36 @@
 
 ; == 火箭飞行常量
 (define Y-DELTA 3)  
-(define RKT-X-POS (/ BG-W 2))
-(define INIT-Y-POS (- BG-H RKT-CTR))
-; 高度定义
-; 地面与火箭中心距离
+(define X-START-POS (/ BG-W 2))
+(define Y-START-POS (- BG-H RKT-CTR))
 
 ; 按键函数：火箭静止，且只有按下空格键后，火箭才发射
 ; LR KeyEvent -> LR
 (define (handle-key rkt-state a-key)
   (cond
-    [(and (string? rkt-state) (key=? a-key " ")) INIT-Y-POS] 
+    [(and (string? rkt-state) (key=? a-key " ")) Y-START-POS] 
     [else rkt-state])) 
+
 
 ; 时钟函数：每滴答一次，火箭上升 3像素
 ; LR -> LR
-(define (rkt-tock rkt-state)
+(define (tock-y-h rkt-state)
   (cond
     [(and (number? rkt-state) (> rkt-state 0)) (- rkt-state Y-DELTA)] 
     [else rkt-state]))
+
 
 ; 火箭函数：时钟滴答一次，实时绘制火箭一次
 ; LR -> Image
 (define (draw-rkt rkt-state)
     (place-image ROCKET
-        RKT-X-POS
+        X-START-POS
         (cond
-            [(string? rkt-state) INIT-Y-POS]
+            [(string? rkt-state) Y-START-POS]
             [(>= rkt-state 0) rkt-state])
     BACKG))
+
+; 注，到了第 55 题，就会提醒你，place-image  可以单独定义为函数。
 
 ; 火箭超出画布时停止飞行
 ; LR -> Boolean
@@ -69,7 +74,7 @@
   (big-bang rkt-state
             (to-draw draw-rkt)
             (on-key handle-key)
-            (on-tick rkt-tock)
+            (on-tick tock-y-h)
             (stop-when rkt-off-canvas?)))
 
 (main "resting")
@@ -94,7 +99,7 @@
 
 ; 定义火箭初始位置
 ; number -> number
-(define INIT-Y-POS (- BG-H RKT-CTR))
+(define Y-START-POS (- BG-H RKT-CTR))
 
 ; 定义火箭状态常量
 ; worldstate -> worldstate
@@ -109,7 +114,7 @@
 ; worldstate keyevent -> worldstate
 (define (handle-key rkt-state a-key)
     (cond
-        [(and (eq? rkt-state RESTING) (key=? a-key " ")) INIT-Y-POS]
+        [(and (eq? rkt-state RESTING) (key=? a-key " ")) Y-START-POS]
         [else rkt-state]))
 
 ; 定义火箭飞行水平位置
@@ -118,7 +123,7 @@
 
 ; 定义火箭飞行高度
 ; number -> number 
-(define (rkt-tock rkt-state)
+(define (tock-y-h rkt-state)
     (cond
         [(number? rkt-state)(- rkt-state Y-DELTA)]
         [else rkt-state]))
@@ -130,7 +135,7 @@
         RKT-X
         (cond
             [(number? rkt-state) rkt-state]
-            [else INIT-Y-POS])
+            [else Y-START-POS])
     BACKG))
 
 ; 检验火箭是否停止飞行
@@ -143,18 +148,18 @@
 ; 定义主函数
 (define (main rkt-state)
     (big-bang rkt-state
-        (on-tick rkt-tock)
+        (on-tick tock-y-h)
         (to-draw draw-rkt)
         (on-key handle-key)
         (stop-when rkt-off-canvas?)))
 
-; 测试 rkt-tock
-(check-expect (rkt-tock 100) 97) 
-(check-expect (rkt-tock 'resting) 'resting) 
+; 测试 tock-y-h
+(check-expect (tock-y-h 100) 97) 
+(check-expect (tock-y-h 'resting) 'resting) 
 
 ; 测试 handle-key
 (check-expect (handle-key 'resting "a") 'resting)  
-(check-expect (handle-key 'resting " ") INIT-Y-POS)
+(check-expect (handle-key 'resting " ") Y-START-POS)
 (check-expect (handle-key 100 " ")100) 
 
 ; 测试 rkt-off-canvas?
