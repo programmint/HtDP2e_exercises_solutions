@@ -15,8 +15,7 @@
 (define (red_sign ws)
     (rectangle RED_SIGN_WIDTH (RED_SIGN_HEIGHT ws) "solid" "red"))
 
-    ; ws 不停动态变化，所以取  (/ ws 100) 的比例，然后再与 BACKGROUND_HEIGHT 相乘，得出红色标识的高度
-
+    ; ws 数值不断变化，取  (/ ws 100) 的比例，然后再与 BACKGROUND_HEIGHT 相乘，得出红色标识的高度
 
 ;定义快乐指数函数
 ; image -> image 
